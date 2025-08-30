@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- need meta viewport tag to allow for css media queries on mobile -->
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<title>CS55.13 Fall 2025 Week 2: React Import External JSON</title>
+	<!-- local css -->
+	<style>
+		ol {
+			margin: 0;
+			padding: 0;
+			list-style-type: none;
+		}
+
+		li {
+			display: inline-block;
+      padding: 20px;
+		}
+	</style>
+  <!-- load jquery to use for external json loading -->
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <!-- load babel transpiler to convert React's JSX markup to pure JavaScript
+       Note: we only need babel loaded in the browser if we are not using a build system 
+       where babel would save pure JS files to be loaded by the browser instead -->
+	<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+	<!-- create an element that can be the root element for your react application -->
+	<div id="myApp"></div>
+
+  <!-- load our custom script with react component -->
+  <script type="text/babel" data-type="module" data-presets="react"> "use strict";
+
+  // load react as module
+  import React from 'https://cdn.jsdelivr.net/npm/react@19.1.1/+esm';
+  // load createRoot method from ReactDOM/client
+  import { createRoot } from 'https://cdn.jsdelivr.net/npm/react-dom@19.1.1/client/+esm';
+
+  // define a react page component (some JSX that will get react to make html elements
+  // in the view (html output) based on the data it receives from the model (json)
+    function ProjectList(props) {
+      // return some dynamically generated html output for the component using JSX
+      return <div>
+          <ol>
+            { // Betweem the curly braces is javascript!!
+              // use map() to loop thru array passed in props.list, creating new element for each array value
+              props.list.map( 
+                // copy current array value into item and pass to arrow function
+                (item,index) => ( //Round parens since you can't stack curlies in .jsx
+                  <li key={index}>
+                    <a href={item.link}>
+                      {item.firstname}
+                    </a>
+                  </li>
+                )
+              )
+            }
+          </ol>
+        </div>;
+    }
+
+  // use jQuery to load JSON
+  $.getJSON("anything", function(jsonFromJquery) {
+    console.log(jsonFromJquery);
+    // after JSON loaded
+    // find html element
+    const myElement = document.getElementById('myApp');
+    // reactDOM createRoot() to identify root HTML element for app
+    const myRoot = createRoot(myElement);
+    // then call react render() to output component into existing element
+    // render() takes 2 arguments: (1) JSX component, (2) the html element to render into
+    myRoot.render(
+      <ProjectList list={jsonFromJquery} />
+    );
+  }
+  );
+  </script>
+</body>
+
+</html>
