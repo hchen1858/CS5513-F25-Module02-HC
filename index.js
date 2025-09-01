@@ -11,40 +11,35 @@ const fs = require("fs").promises;
 
 // Create a function to respond to http requests
 const requestListener =  function( myrequest, myresponse ) {
-            console.log( myrequest.url );
+    console.log( myrequest.url );
             
-            if ( myrequest.url === "/" ) {
-                // Check request url, if root, return html file
-                /* Special variable double underscore '__dirname' has absolute path of where node code is running
-                    Inside Node.js readFile __dirname has current directory name then append the file path*/
-                fs.readFile(__dirname + "/page.html").then(
-                    // function(contents) {} is equivalent to:
-                     /* writeHead() creates an http response header, including the status code (200 OK), the content type
-                        myresponse.writeHead( 200, { "Content-Type": "text/plain" } );*/
-                    // MIME type: is either text/html or application/json
-                    contents => {
-                        // Set http response header entry
-                        myresponse.setHeader("Content-Type", "text/html; charset=UTF-8");
-                        // Return 200 OK http status code
-                        myresponse.writeHead(200);
-                        // Send back file contents + close response
-                         myresponse.end( contents ); 
-                    }
-                );
-                                       
-            } else { // Send back .json data file if anything other than root page comes in
-                 fs.readFile(__dirname + "/data.json").then(
-                    contents => {
-                        // Set http response header entry
-                        myresponse.setHeader("Content-Type", "application/json; charset=UTF-8");
-                        // Return 200 OK http status code
-                        myresponse.writeHead(200);
-                        // Send back file contents + close response
-                         myresponse.end( contents );
-                    } 
-                 );
-            }
-    };           
+    let filepath = "/page.html";
+    let mimeType = "text/html";
+    
+    // Check request url, if root, return html file by leaving filepath & mimeType unchanged, otherwise return the contents of the json file
+        if ( myrequest.url != "/" ) {
+            filepath = "/data.json";
+            mimeType = "application/json";
+        } 
+
+    /* Note special variable double underscore '__dirname' has absolute path of where node code is running
+        Inside Node.js readFile __dirname has current directory name then append the file path*/
+        fs.readFile(__dirname + filepath).then(
+            // function(contents) {} is equivalent to:
+            
+            // MIME type: is either text/html or application/json
+                contents => {
+                    // Set http response header entry
+                    myresponse.setHeader("Content-Type", mimeType + "; charset=UTF-8");
+                    /* writeHead() creates an http response header, including the status code (200 OK), the content type
+                       myresponse.writeHead( 200, { "Content-Type": "text/plain" } );*/
+                    // Return 200 OK http status code
+                    myresponse.writeHead(200);
+                    // Send back file contents + close response
+                    myresponse.end( contents ); 
+                }
+            )
+};           
            
 // Use http package createServer() that runs a web server
 let myserver = myhttp.createServer(
