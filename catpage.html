@@ -13,11 +13,21 @@
 		}
 
 		li {
-            background-color:silver;
+      max-width: 30%;
+      background-color:silver;
 			display: block;
-            padding: 20px;
-            margin: 5px;
+      padding: 20px;
+      margin: 5px;
 		}
+
+    button {
+      font-family:'Times New Roman', Times, serif;
+      background-color: whitesmoke;
+      border: 3px;      
+      border-color: black;
+      font-size: 16px;
+    }
+
 	</style>
   <!-- load jquery to use for external json loading -->
 	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
@@ -54,9 +64,10 @@
                 // copy current array value into item and pass to arrow function
                 (item,index) => ( //Round parens since you can't stack curlies in .jsx
                   <li key={index}>
-                    <h3>{item.breed}</h3>
+                    <h3>{item.breed}</h3>                    
                     <img src= {item.imagepath} alt= {item.alttext}></img>;
                     <h5>{item.attribution}</h5>
+                    <a href= {item.link}> <button>{item.buttontitle}</button></a>
                   </li>
                 )
               )
