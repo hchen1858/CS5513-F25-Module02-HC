@@ -1,0 +1,26 @@
+[
+    {
+        "breed":"British Shorthair",
+        "imagepath": "../assets/British_Shorthair_Cat_2.jpg",  
+        "attribution": "Martin Hedegaard from Odense C, Danmark, CC BY 3.0 ",
+        "alttext": "Gray Britich Shorthair cat with pumpkin eyes"
+    },
+    {
+        "breed":"Maine Coon",
+        "imagepath":"../assets/Two_Maine_Coons.jpg",
+        "attribution": "Ankord, Public domain, via Wikimedia Commons",
+        "alttext": "Two Maine Coon cats"
+    },
+    {
+        "breed":"Persian",
+        "imagepath":"../assets/Shaded_silver_Persian_Cat_Missionhill_Cosmic_Rainstorm.jpg",
+        "attribution": "Wyndcreste, CC BY 3.0, via Wikimedia Commons",
+        "alttext": "A pure white Persian cat"
+    },
+    {
+        "breed":"Siamese",
+        "imagepath":"../assets/Two_Siamese_cats.jpg",
+        "attribution": "Rick Truter, CC BY 2.0 via Wikimedia Commons",
+        "alttext": "Two Siamese cats"
+    }
+]

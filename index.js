@@ -13,23 +13,22 @@ const fs = require("fs").promises;
 const requestListener =  function( myrequest, myresponse ) {
     console.log( myrequest.url );
             
-    let filepath = "/page.html";
+    let filepath = "/catpage.html";
     let mimeType = "text/html";
     
     // Check request url, if root, return html file by leaving filepath & mimeType unchanged, otherwise return the contents of the json file
         if ( myrequest.url != "/" ) {
-            filepath = "/data.json";
+            filepath = "/catdata.json";
             mimeType = "application/json";
         } 
 
     /* Note special variable double underscore '__dirname' has absolute path of where node code is running
-        Inside Node.js readFile __dirname has current directory name then append the file path*/
+        Inside Node.js readFile __dirname has current directory name then append the file path to either the html or the json*/
         fs.readFile(__dirname + filepath).then(
-            // function(contents) {} is equivalent to:
-            
-            // MIME type: is either text/html or application/json
+            // function(contents) {} is equivalent to: 
                 contents => {
                     // Set http response header entry
+                    // MIME type: is either text/html or application/json
                     myresponse.setHeader("Content-Type", mimeType + "; charset=UTF-8");
                     /* writeHead() creates an http response header, including the status code (200 OK), the content type
                        myresponse.writeHead( 200, { "Content-Type": "text/plain" } );*/

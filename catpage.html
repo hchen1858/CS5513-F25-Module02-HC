@@ -6,15 +6,17 @@
 	<title>CS55.13 Fall 2025 Week 2: React Import External JSON</title>
 	<!-- local css -->
 	<style>
-		ol {
+		ul {
 			margin: 0;
 			padding: 0;
-			list-style-type: none;
+			list-style-type:none;
 		}
 
 		li {
-			display: inline-block;
-      padding: 20px;
+            background-color:silver;
+			display: block;
+            padding: 20px;
+            margin: 5px;
 		}
 	</style>
   <!-- load jquery to use for external json loading -->
@@ -27,7 +29,7 @@
 
 <body>
 	<!-- create an element that can be the root element for your react application -->
-	<div id="myApp"></div>
+	<div id="catApp"></div>
 
   <!-- load our custom script with react component -->
   <script type="text/babel" data-type="module" data-presets="react"> "use strict";
@@ -37,26 +39,29 @@
   // load createRoot method from ReactDOM/client
   import { createRoot } from 'https://cdn.jsdelivr.net/npm/react-dom@19.1.1/client/+esm';
 
+  // Import the .jpg images into src on the server
+  //import britishshorthair from '../assets/British_Shorthair_Cat_2.jpg';
+
   // define a react page component (some JSX that will get react to make html elements
   // in the view (html output) based on the data it receives from the model (json)
-    function ProjectList(props) {
+    function ProjectList(dataprops) {
       // return some dynamically generated html output for the component using JSX
       return <div>
-          <ol>
+          <ul>
             { // Betweem the curly braces is javascript!!
               // use map() to loop thru array passed in props.list, creating new element for each array value
-              props.list.map( 
+              dataprops.list.map( 
                 // copy current array value into item and pass to arrow function
                 (item,index) => ( //Round parens since you can't stack curlies in .jsx
                   <li key={index}>
-                    <a href={item.link}>
-                      {item.firstname}
-                    </a>
+                    <h3>{item.breed}</h3>
+                    <img src= {item.imagepath} alt= {item.alttext}></img>;
+                    <h5>{item.attribution}</h5>
                   </li>
                 )
               )
             }
-          </ol>
+          </ul>
         </div>;
     }
 
@@ -65,7 +70,7 @@
     console.log(jsonFromJquery);
     // after JSON loaded
     // find html element
-    const myElement = document.getElementById('myApp');
+    const myElement = document.getElementById('catApp');
     // reactDOM createRoot() to identify root HTML element for app
     const myRoot = createRoot(myElement);
     // then call react render() to output component into existing element
