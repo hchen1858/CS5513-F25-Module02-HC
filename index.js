@@ -29,7 +29,7 @@ const requestListener =  function( myrequest, myresponse ) {
                 contents => {
                     // Set http response header entry
                     // MIME type: is either text/html or application/json
-                    myresponse.setHeader("Content-Type", mimeType + "; charset=UTF-8");
+                    myresponse.setHeader("Content-Type", mimeType + "; charset=UTF-8");                  
                     /* writeHead() creates an http response header, including the status code (200 OK), the content type
                        myresponse.writeHead( 200, { "Content-Type": "text/plain" } );*/
                     // Return 200 OK http status code
@@ -37,7 +37,7 @@ const requestListener =  function( myrequest, myresponse ) {
                     // Send back file contents + close response
                     myresponse.end( contents ); 
                 }
-            )
+            )       
 };           
            
 // Use http package createServer() that runs a web server
